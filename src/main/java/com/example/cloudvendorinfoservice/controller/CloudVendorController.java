@@ -1,7 +1,10 @@
 package com.example.cloudvendorinfoservice.controller;
 
 import com.example.cloudvendorinfoservice.model.CloudVendor;
+import com.example.cloudvendorinfoservice.response.ResponseHandler;
 import com.example.cloudvendorinfoservice.service.CloudVendorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +17,10 @@ public class CloudVendorController {
         this.cloudVendorService = cloudVendorService;
     }
     @GetMapping("{vendorId}")
-    public CloudVendor getCloudVendorDetails(@PathVariable("vendorId") String vendorId){
-        return cloudVendorService.getCloudVendor(vendorId);
+    public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") String vendorId){
+        return ResponseHandler.responseBuilder("Requested Vendor Details Are Given Here",
+                HttpStatus.OK,
+                cloudVendorService.getCloudVendor(vendorId));
     }
     @GetMapping
     public List<CloudVendor> getAllCloudVendorDetails(){

@@ -1,5 +1,6 @@
 package com.example.cloudvendorinfoservice.service.impl;
 
+import com.example.cloudvendorinfoservice.exception.CloudVendorNotFoundException;
 import com.example.cloudvendorinfoservice.model.CloudVendor;
 import com.example.cloudvendorinfoservice.repository.CloudVendorRepository;
 import com.example.cloudvendorinfoservice.service.CloudVendorService;
@@ -20,18 +21,27 @@ public class CloudVendorServiceImpl implements CloudVendorService {
     }
     @Override
     public String updateCloudVendor(CloudVendor cloudVendor) {
+        if(cloudVendorRepository.findById(cloudVendor.getVendorId()).isEmpty()){
+            throw new CloudVendorNotFoundException("Requested Cloud Vendor Does Not Exist");
+        }
         cloudVendorRepository.save(cloudVendor);
         return "Success";
     }
 
     @Override
     public String deleteCloudVendor(String vendorId) {
+        if(cloudVendorRepository.findById(vendorId).isEmpty()){
+            throw new CloudVendorNotFoundException("Requested Cloud Vendor Does Not Exist");
+        }
         cloudVendorRepository.deleteById(vendorId);
         return "Success";
     }
 
     @Override
     public CloudVendor getCloudVendor(String vendorId) {
+        if(cloudVendorRepository.findById(vendorId).isEmpty()){
+            throw  new CloudVendorNotFoundException("Requested Cloud Vendor Does Not Exist");
+        }
         return cloudVendorRepository.findById(vendorId).get();
     }
 

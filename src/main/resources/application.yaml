@@ -7,3 +7,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+apiTitle: "Cloud Vendor API Application"
+apiDescription: "Cloud Vendor API Documentation."
+apiVersion: "1.0.0"
+apiContactName: ""
+apiContactEmail: ""
+apiContactUrl: ""
